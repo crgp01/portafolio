@@ -51,6 +51,18 @@ export const artworks: Artwork[] = [
     process: 'Descripción del proceso de esta obra...',
     alt: 'Chincol furioso',
   },
+  {
+    id: 5,
+    title: 'Manzana hiperrealista',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/manzana.png',
+    images: [
+      '/images/manzana.png',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Manzana hiperealista',
+  },
   // 📌 Agrega tus 7 obras restantes aquí
 ]
 
