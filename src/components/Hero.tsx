@@ -49,7 +49,7 @@ function Hero() {
         }}>
           <div style={{
             width: '100%',
-            maxWidth: '80%',
+            maxWidth: '95%',
             aspectRatio: '4/3',
             backgroundColor: 'var(--cream-dark)',
             border: '1px solid var(--border)',

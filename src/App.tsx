@@ -1,5 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import About from './components/About'
+import Portfolio from './components/Portfolio'
 
 function App() {
   return (
@@ -7,7 +9,8 @@ function App() {
       <Navbar />
       <main style={{ paddingTop: '80px' }}>
         <Hero />
-        <h1>Hola mundo</h1>
+        <About />
+        <Portfolio />
       </main>
     </div>
   )
