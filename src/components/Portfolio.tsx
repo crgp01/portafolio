@@ -16,9 +16,6 @@ function Portfolio() {
     i >= artworks.length - VISIBLE ? 0 : i + 1
   )
 
-  const canPrev = startIndex > 0
-  const canNext = startIndex < artworks.length - VISIBLE
-
   const visibleArtworks = artworks.slice(startIndex, startIndex + VISIBLE)
 
   return (
