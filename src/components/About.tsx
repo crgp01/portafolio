@@ -9,6 +9,8 @@ function About() {
       display: 'grid',
       gridTemplateColumns: isMobile ? '1fr' : '65% 35%',
       alignItems: 'stretch',
+      padding: isMobile ? '3rem 1.5rem' : '0 4rem',
+      gap: '2rem',
     }}>
 
       {/* Foto */}
@@ -16,6 +18,7 @@ function About() {
         position: 'relative',
         overflow: 'hidden',
         minHeight: isMobile ? '60vw' : 'auto',
+        maxWidth: '95%'
       }}>
         <img
           src="/images/foto-cristina.jpg"
@@ -31,7 +34,7 @@ function About() {
         {/* Texto sobre la foto */}
         <div style={{
           position: 'absolute',
-          bottom: '2rem',
+          bottom: '21rem',
           left: isMobile ? '1.5rem' : '3rem',
         }}>
           <h2 style={{

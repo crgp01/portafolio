@@ -7,7 +7,7 @@ function Hero() {
     <section style={{
       minHeight: '100vh',
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gridTemplateColumns: isMobile ? '1fr' : '0.35fr 0.65fr',
       alignItems: 'center',
       padding: isMobile ? '3rem 1.5rem' : '0 4rem',
       gap: '2rem',
@@ -57,7 +57,7 @@ function Hero() {
       }}>
         <div style={{
           width: '100%',
-          maxWidth: isMobile ? '320px' : '580px',
+          maxWidth: isMobile ? '320px' : '95%',
           aspectRatio: '4/3',
           boxShadow: '8px 12px 40px rgba(44, 24, 16, 0.12)',
           overflow: 'hidden',

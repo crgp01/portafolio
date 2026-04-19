@@ -38,9 +38,9 @@ function Contact() {
   return (
     <section id="contacto" style={{
       minHeight: '100vh',
-      padding: isMobile ? '3rem 1.5rem' : '5rem 4rem',
+      padding: isMobile ? '3rem 1.5rem' : '0 4rem',
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gridTemplateColumns: isMobile ? '1fr' : '35% 65%',
       gap: isMobile ? '2rem' : '4rem',
       alignItems: 'center',
     }}>
@@ -143,6 +143,7 @@ function Contact() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          maxWidth: '95%'
         }}>
           <img
             src="/images/manzana.png"
