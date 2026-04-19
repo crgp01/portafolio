@@ -110,10 +110,85 @@ export const artworks: Artwork[] = [
     year: 2023,
     imageUrl: '/images/karin.jpg',
     images: [
-        '/images/karin.jog',
+        '/images/karin.jpg',
     ],
     process: 'Descripción del proceso de esta obra...',
     alt: 'Retrato karin',
+  },
+  {
+    id: 10,
+    title: 'Monstera deliciosa',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/monstera4.jpg',
+    images: [
+        '/images/monstera.jpg',
+        '/images/monstera2.jpg',
+        '/images/monstera3.jpg',
+        '/images/monstera4.jpg',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Monstera deliciosa',
+  }, 
+  {
+    id: 11,
+    title: 'Tren Vintage',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/Tren_Vintage.jpg',
+    images: [
+        '/images/Tren_Vintage.jpg',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Tren Vintage',
+  }, 
+  {
+    id: 12,
+    title: 'Space Princess',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/space-princess.jpg',
+    images: [
+        '/images/space-princess.jpg',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Space Princess',
+  }, 
+  {
+    id: 14,
+    title: 'Acuarela Playa',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/playa_acuarela.png',
+    images: [
+        '/images/playa_acuarela.png',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Acuarela Playa',
+  }, 
+  {
+    id: 15,
+    title: 'Hada Lila',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/Hada_Lila.png',
+    images: [
+        '/images/Hada_Lila.png',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Hada Lila',
+  }, 
+  {
+    id: 16,
+    title: 'Blue World',
+    technique: 'Procreate',
+    year: 2023,
+    imageUrl: '/images/blue-world.jpg',
+    images: [
+        '/images/blue-world.jpg',
+    ],
+    process: 'Descripción del proceso de esta obra...',
+    alt: 'Hada Lila',
   }
   // 📌 Agrega tus 7 obras restantes aquí
 ]
