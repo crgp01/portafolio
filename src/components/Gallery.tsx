@@ -2,21 +2,23 @@ import { useState } from 'react'
 import { artworks } from '../data/artworks'
 import type { Artwork } from '../types'
 import ArtworkModal from './ArtworkModal'
+import useIsMobile from '../hooks/useIsMobile'
 
 function Gallery() {
+  const isMobile = useIsMobile()
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
   const [hoveredId, setHoveredId] = useState<number | null>(null)
 
   return (
     <section style={{
       minHeight: '100vh',
-      padding: '4rem',
+      padding: isMobile ? '3rem 1.5rem' : '4rem',
     }}>
 
       {/* Título */}
       <h2 style={{
         fontFamily: 'var(--font-serif)',
-        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+        fontSize: isMobile ? '2.5rem' : 'clamp(2.5rem, 5vw, 4rem)',
         fontWeight: 300,
         color: 'var(--brown-dark)',
         marginBottom: '0.5rem',
@@ -36,8 +38,8 @@ function Gallery() {
       {/* Grilla */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',
-        gap: '1.5rem',
+        gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+        gap: isMobile ? '1rem' : '1.5rem',
       }}>
         {artworks.map(artwork => (
           <div
@@ -67,39 +69,64 @@ function Gallery() {
               }}
             />
 
-            {/* Overlay en hover */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              backgroundColor: 'rgba(44, 24, 16, 0.55)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              padding: '1.25rem',
-              opacity: hoveredId === artwork.id ? 1 : 0,
-              transition: 'opacity 0.3s ease',
-            }}>
-              <h3 style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: '1.1rem',
-                fontWeight: 500,
-                color: 'white',
-                marginBottom: '0.25rem',
+            {/* Overlay en hover — solo desktop */}
+            {!isMobile && (
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                backgroundColor: 'rgba(44, 24, 16, 0.55)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                padding: '1.25rem',
+                opacity: hoveredId === artwork.id ? 1 : 0,
+                transition: 'opacity 0.3s ease',
               }}>
-                {artwork.title}
-              </h3>
-              <p style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.8rem',
-                color: 'rgba(255,255,255,0.8)',
+                <h3 style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: '1.1rem',
+                  fontWeight: 500,
+                  color: 'white',
+                  marginBottom: '0.25rem',
+                }}>
+                  {artwork.title}
+                </h3>
+                <p style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '0.8rem',
+                  color: 'rgba(255,255,255,0.8)',
+                }}>
+                  {artwork.technique} · {artwork.year}
+                </p>
+              </div>
+            )}
+
+            {/* Título visible siempre en móvil */}
+            {isMobile && (
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: '0.5rem',
+                backgroundColor: 'rgba(44, 24, 16, 0.5)',
               }}>
-                {artwork.technique} · {artwork.year}
-              </p>
-            </div>
+                <p style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: '0.75rem',
+                  color: 'white',
+                  textAlign: 'center',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}>
+                  {artwork.title}
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>
-
       {/* Modal */}
       {selectedArtwork && (
         <ArtworkModal

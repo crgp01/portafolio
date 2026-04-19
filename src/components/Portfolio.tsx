@@ -1,20 +1,25 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { artworks } from '../data/artworks'
 import type { Artwork } from '../types'
 import ArtworkModal from './ArtworkModal'
-import { useNavigate } from 'react-router-dom'
+import useIsMobile from '../hooks/useIsMobile'
 
-const VISIBLE = 3 // cuántas cards se ven a la vez
+const VISIBLE_DESKTOP = 3
+const VISIBLE_MOBILE = 1
 
 function Portfolio() {
+  const isMobile = useIsMobile()
+  const VISIBLE = isMobile ? VISIBLE_MOBILE : VISIBLE_DESKTOP
+
   const [startIndex, setStartIndex] = useState(0)
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
   const navigate = useNavigate()
 
-  const prev = () => setStartIndex(i => 
+  const prev = () => setStartIndex(i =>
     i === 0 ? artworks.length - VISIBLE : i - 1
   )
-  const next = () => setStartIndex(i => 
+  const next = () => setStartIndex(i =>
     i >= artworks.length - VISIBLE ? 0 : i + 1
   )
 
@@ -23,14 +28,14 @@ function Portfolio() {
   return (
     <section id="portafolio" style={{
       minHeight: '100vh',
-      padding: '5rem 4rem',
+      padding: isMobile ? '3rem 1.5rem' : '5rem 4rem',
       position: 'relative',
     }}>
 
       {/* Título */}
       <h2 style={{
         fontFamily: 'var(--font-serif)',
-        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+        fontSize: isMobile ? '2.5rem' : 'clamp(2.5rem, 5vw, 4rem)',
         fontWeight: 300,
         color: 'var(--brown-dark)',
         marginBottom: '3rem',
@@ -42,25 +47,25 @@ function Portfolio() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: '1.5rem',
+        gap: '1rem',
       }}>
 
         {/* Flecha izquierda */}
         <button
-        onClick={prev}
-        style={{
-            fontSize: '2.5rem',
+          onClick={prev}
+          style={{
+            fontSize: isMobile ? '1.8rem' : '2.5rem',
             color: 'var(--brown-dark)',
             flexShrink: 0,
-        }}
+          }}
         >
-        ←
+          ←
         </button>
 
         {/* Cards */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
           gap: '2rem',
           flex: 1,
         }}>
@@ -77,12 +82,16 @@ function Portfolio() {
                 transition: 'transform 0.2s, box-shadow 0.2s',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 30px rgba(44,24,16,0.1)'
+                if (!isMobile) {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)'
+                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 30px rgba(44,24,16,0.1)'
+                }
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'
-                ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
+                if (!isMobile) {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)'
+                  ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'none'
+                }
               }}
             >
               {/* Imagen */}
@@ -99,7 +108,6 @@ function Portfolio() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    transition: 'transform 0.3s',
                   }}
                 />
               </div>
@@ -133,14 +141,14 @@ function Portfolio() {
 
         {/* Flecha derecha */}
         <button
-        onClick={next}
-        style={{
-            fontSize: '2.5rem',
+          onClick={next}
+          style={{
+            fontSize: isMobile ? '1.8rem' : '2.5rem',
             color: 'var(--brown-dark)',
             flexShrink: 0,
-        }}
+          }}
         >
-         →
+          →
         </button>
       </div>
 
@@ -166,6 +174,26 @@ function Portfolio() {
         ))}
       </div>
 
+      {/* Botón ver más */}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+        <button
+          onClick={() => navigate('/portafolio')}
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: '1rem',
+            color: 'var(--brown-medium)',
+            letterSpacing: '0.05em',
+            borderBottom: '1px solid var(--brown-muted)',
+            paddingBottom: '2px',
+            transition: 'color 0.2s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = 'var(--brown-dark)')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'var(--brown-medium)')}
+        >
+          Ver portafolio completo →
+        </button>
+      </div>
+
       {/* Modal */}
       {selectedArtwork && (
         <ArtworkModal
@@ -173,25 +201,7 @@ function Portfolio() {
           onClose={() => setSelectedArtwork(null)}
         />
       )}
-    {/* Botón ver más */}
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
-    <button
-        onClick={() => navigate('/portafolio')}
-        style={{
-        fontFamily: 'var(--font-serif)',
-        fontSize: '1rem',
-        color: 'var(--brown-medium)',
-        letterSpacing: '0.05em',
-        borderBottom: '1px solid var(--brown-muted)',
-        paddingBottom: '2px',
-        transition: 'color 0.2s',
-        }}
-        onMouseEnter={e => (e.currentTarget.style.color = 'var(--brown-dark)')}
-        onMouseLeave={e => (e.currentTarget.style.color = 'var(--brown-medium)')}
-    >
-        Ver portafolio completo →
-    </button>
-    </div>
+
     </section>
   )
 }

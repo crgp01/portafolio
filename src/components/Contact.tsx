@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import type { ContactFormData } from '../types'
+import useIsMobile from '../hooks/useIsMobile'
 
 function Contact() {
+  const isMobile = useIsMobile()
   const [form, setForm] = useState<ContactFormData>({
     nombre: '',
     apellido: '',
@@ -9,7 +11,6 @@ function Contact() {
     telefono: '',
     mensaje: '',
   })
-
   const [enviado, setEnviado] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -18,7 +19,6 @@ function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // 📌 Aquí conectarás tu servicio de email (EmailJS, Formspree, etc.)
     console.log('Formulario enviado:', form)
     setEnviado(true)
   }
@@ -38,18 +38,18 @@ function Contact() {
   return (
     <section id="contacto" style={{
       minHeight: '100vh',
-      padding: '5rem 4rem',
+      padding: isMobile ? '3rem 1.5rem' : '5rem 4rem',
       display: 'grid',
-      gridTemplateColumns: '0.35fr 0.65fr',
-      gap: '4rem',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: isMobile ? '2rem' : '4rem',
       alignItems: 'center',
     }}>
 
-      {/* Columna izquierda — formulario */}
+      {/* Formulario */}
       <div>
         <h2 style={{
           fontFamily: 'var(--font-serif)',
-          fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+          fontSize: isMobile ? '2.5rem' : 'clamp(2.5rem, 5vw, 4rem)',
           fontWeight: 300,
           color: 'var(--brown-dark)',
           marginBottom: '2.5rem',
@@ -69,7 +69,10 @@ function Contact() {
             Te responderé pronto. 🌿
           </div>
         ) : (
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          >
             <input
               style={inputStyle}
               type="text"
@@ -134,25 +137,24 @@ function Contact() {
         )}
       </div>
 
-      {/* Columna derecha — imagen decorativa */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-
-        <img src="/images/manzana.png" alt="obra" style={{ width: '100%', borderRadius: '2px' }} />
+      {/* Imagen decorativa — oculta en móvil */}
+      {!isMobile && (
         <div style={{
-          width: '100%',
-          aspectRatio: '4/3',
-          backgroundColor: 'var(--cream-dark)',
-          border: '1px solid var(--border)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
+          <img
+            src="/images/manzana.png"
+            alt="obra decorativa"
+            style={{
+              width: '100%',
+              borderRadius: '2px',
+              border: '1px solid var(--border)',
+            }}
+          />
         </div>
-      </div>
+      )}
 
     </section>
   )

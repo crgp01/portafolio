@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import useIsMobile from '../hooks/useIsMobile'
 
 function Navbar() {
   const location = useLocation()
   const navigate = useNavigate()
+  const isMobile = useIsMobile()
   const isGallery = location.pathname === '/portafolio'
 
   const scrollTo = (id: string) => {
@@ -26,38 +28,40 @@ function Navbar() {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '1.5rem 4rem',
+      padding: isMobile ? '1rem 1.5rem' : '1.5rem 4rem',
       backgroundColor: 'var(--cream)',
       borderBottom: '1px solid var(--border)',
     }}>
 
-      {/* Logo — siempre lleva al inicio */}
+      {/* Logo */}
       <button
         onClick={() => navigate('/')}
         style={{
           fontFamily: 'var(--font-script)',
-          fontSize: '1.4rem',
+          fontSize: isMobile ? '0.95rem' : '1.4rem',
           color: 'var(--brown-dark)',
           background: 'none',
           border: 'none',
           cursor: 'pointer',
+          whiteSpace: 'nowrap',
         }}
       >
         Cristina Rivera Pastrano
       </button>
 
-      {/* Links — cambian según la página */}
+      {/* Links */}
       {isGallery ? (
         <button
           onClick={() => navigate('/')}
           style={{
             fontFamily: 'var(--font-serif)',
-            fontSize: '0.85rem',
-            letterSpacing: '0.15em',
+            fontSize: isMobile ? '0.75rem' : '0.85rem',
+            letterSpacing: '0.1em',
             color: 'var(--brown-dark)',
             background: 'none',
             border: 'none',
             cursor: 'pointer',
+            whiteSpace: 'nowrap',
           }}
         >
           ← INICIO
@@ -66,24 +70,25 @@ function Navbar() {
         <ul style={{
           listStyle: 'none',
           display: 'flex',
-          gap: '3rem',
+          gap: isMobile ? '1rem' : '3rem',
         }}>
           {[
-            { label: 'BIOGRAFÍA', id: 'biografia' },
-            { label: 'PORTAFOLIO', id: 'portafolio' },
-            { label: 'CONTACTO', id: 'contacto' },
+            { label: isMobile ? 'BIO' : 'BIOGRAFÍA', id: 'biografia' },
+            { label: isMobile ? 'OBRAS' : 'PORTAFOLIO', id: 'portafolio' },
+            { label: isMobile ? 'CONTACTO' : 'CONTACTO', id: 'contacto' },
           ].map(({ label, id }) => (
             <li key={id}>
               <button
                 onClick={() => scrollTo(id)}
                 style={{
                   fontFamily: 'var(--font-serif)',
-                  fontSize: '0.85rem',
-                  letterSpacing: '0.15em',
+                  fontSize: isMobile ? '0.7rem' : '0.85rem',
+                  letterSpacing: '0.1em',
                   color: 'var(--brown-dark)',
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {label}
@@ -92,7 +97,6 @@ function Navbar() {
           ))}
         </ul>
       )}
-
     </nav>
   )
 }
