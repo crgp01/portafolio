@@ -2,12 +2,14 @@ import { useState } from 'react'
 import { artworks } from '../data/artworks'
 import type { Artwork } from '../types'
 import ArtworkModal from './ArtworkModal'
+import { useNavigate } from 'react-router-dom'
 
 const VISIBLE = 3 // cuántas cards se ven a la vez
 
 function Portfolio() {
   const [startIndex, setStartIndex] = useState(0)
   const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null)
+  const navigate = useNavigate()
 
   const prev = () => setStartIndex(i => 
     i === 0 ? artworks.length - VISIBLE : i - 1
@@ -171,7 +173,25 @@ function Portfolio() {
           onClose={() => setSelectedArtwork(null)}
         />
       )}
-
+    {/* Botón ver más */}
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2.5rem' }}>
+    <button
+        onClick={() => navigate('/portafolio')}
+        style={{
+        fontFamily: 'var(--font-serif)',
+        fontSize: '1rem',
+        color: 'var(--brown-medium)',
+        letterSpacing: '0.05em',
+        borderBottom: '1px solid var(--brown-muted)',
+        paddingBottom: '2px',
+        transition: 'color 0.2s',
+        }}
+        onMouseEnter={e => (e.currentTarget.style.color = 'var(--brown-dark)')}
+        onMouseLeave={e => (e.currentTarget.style.color = 'var(--brown-medium)')}
+    >
+        Ver portafolio completo →
+    </button>
+    </div>
     </section>
   )
 }
